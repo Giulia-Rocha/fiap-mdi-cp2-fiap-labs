@@ -50,13 +50,14 @@ Após iniciar, leia o QR Code com o app Expo Go ou pressione `a` para Android / 
 ## 📸 Demonstração Visual
 
 ### Prints das Telas
-*(Adicione aqui os links das imagens após subir no repo)*
-- [Login](./docs/screenshots/login.png)
-- [Cadastro](./docs/screenshots/cadastro.png)
-- [Lista de Labs](./docs/screenshots/labs.png)
-- [Agendamento](./docs/screenshots/agendamento.png)
-- [Minhas Reservas](./docs/screenshots/reservas.png)
-- [Perfil](./docs/screenshots/perfil.png)
+
+| Tela | Visualização | Tela | Visualização |
+| :--- | :---: | :--- | :---: |
+| **Login** | <img src="./assets/login.png" width="200"> | **Cadastro** | <img src="./assets/cadastro.png" width="200"> |
+| **Lista de Labs** | <img src="./assets/labs.png" width="200"> | **Agendamento** | <img src="./assets/agendamento.png" width="200"> |
+| **Reserva Confirmada** | <img src="./assets/reserva_confirmada.png" width="200"> | **Minhas Reservas** | <img src="./assets/minhas_reservas.png" width="200"> |
+| **Cancelar Reserva** | <img src="./assets/cancelar_reserva.png" width="200"> | **Meu Perfil** | <img src="./assets/meuperfil.png" width="200"> |
+| **Sidebar (Menu)** | <img src="./assets/sidebar.png" width="200"> | | |
 
 ### 🎥 Vídeo de Demonstração
 [Clique aqui para assistir ao vídeo do fluxo completo](https://youtube.com/link-do-video)
