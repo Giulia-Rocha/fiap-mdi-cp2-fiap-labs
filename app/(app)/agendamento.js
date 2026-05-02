@@ -32,6 +32,7 @@ export default function Agendamento() {
   const [dataSelecionada, setDataSelecionada] = useState("");
   const [horarioSelecionado, setHorarioSelecionado] = useState("");
   const [sucesso, setSucesso] = useState(false);
+  const [erroAgendamento, setErroAgendamento] = useState("");
 
   const dataFormatada = useMemo(() => {
     if (!dataSelecionada) return "";
@@ -93,8 +94,10 @@ export default function Agendamento() {
   }, [dataSelecionada, colors.primary]);
 
   const confirmarAgendamento = () => {
+    setErroAgendamento(""); // Reseta o erro ao tentar confirmar
+
     if (!dataSelecionada || !horarioSelecionado) {
-      Alert.alert("Erro", "Por favor, selecione uma data e um horário.");
+      setErroAgendamento("Por favor, selecione uma data e um horário.");
       return;
     }
 
@@ -104,20 +107,20 @@ export default function Agendamento() {
     // 1. Não posso reservar a mesma sala no mesmo dia
     const mesmaSala = reservasDoDia.find(r => r.id === id);
     if (mesmaSala) {
-      Alert.alert("Aviso", "Você já possui uma reserva para esta sala neste dia. Cancele a anterior primeiro.");
+      setErroAgendamento("Você já possui uma reserva para esta sala neste dia. Cancele a anterior primeiro.");
       return;
     }
 
     // 2. Não posso reservar duas salas no mesmo horário (já filtrado no grid, mas validamos aqui por segurança)
     const mesmoHorario = reservasDoDia.find(r => r.horario === horarioSelecionado);
     if (mesmoHorario) {
-      Alert.alert("Aviso", "Você já possui um agendamento neste horário.");
+      setErroAgendamento("Você já possui um agendamento neste horário.");
       return;
     }
 
     // 3. Não posso reservar mais de duas salas no dia
     if (reservasDoDia.length >= 2) {
-      Alert.alert("Limite Atingido", "Você só pode realizar até 2 reservas por dia.");
+      setErroAgendamento("Limite Atingido: Você só pode realizar até 2 reservas por dia.");
       return;
     }
 
@@ -168,6 +171,7 @@ export default function Agendamento() {
           onDayPress={day => {
             setDataSelecionada(day.dateString);
             setHorarioSelecionado(""); // Reset horário ao mudar data
+            setErroAgendamento(""); // Limpa erro ao mudar data
           }}
           markedDates={markedDates}
           minDate={new Date().toISOString().split('T')[0]}
@@ -201,7 +205,10 @@ export default function Agendamento() {
                     { borderColor: colors.primary },
                     horarioSelecionado === horario && { backgroundColor: colors.primary },
                   ]}
-                  onPress={() => setHorarioSelecionado(horario)}
+                  onPress={() => {
+                    setHorarioSelecionado(horario);
+                    setErroAgendamento(""); // Limpa erro ao mudar horário
+                  }}
                 >
                   <Text style={{ 
                     color: horarioSelecionado === horario ? '#FFF' : colors.text,
@@ -217,6 +224,10 @@ export default function Agendamento() {
               Não há mais horários disponíveis para você nesta data.
             </Text>
           )}
+
+          {erroAgendamento ? (
+            <Text style={styles.erroInline}>{erroAgendamento}</Text>
+          ) : null}
 
           <TouchableOpacity
             style={[styles.buttonConfirm, { opacity: (dataSelecionada && horarioSelecionado) ? 1 : 0.6 }]}
@@ -265,12 +276,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   infoText: { textAlign: 'center', marginTop: 30, fontStyle: 'italic' },
+  erroInline: { color: 'red', fontSize: 14, marginTop: 10, textAlign: 'center', fontWeight: '500' },
   buttonConfirm: {
     backgroundColor: "#4CAF50",
     padding: 16,
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 30,
+    marginTop: 20,
   },
   buttonConfirmText: { color: "#FFF", fontWeight: "bold", fontSize: 16 },
   centered: { flex: 1, justifyContent: "center", alignItems: "center" },
