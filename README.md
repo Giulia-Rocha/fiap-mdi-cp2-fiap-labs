@@ -60,7 +60,7 @@ Após iniciar, leia o QR Code com o app Expo Go ou pressione `a` para Android / 
 | **Sidebar (Menu)** | <img src="./assets/sidebar.png" width="200"> | | |
 
 ### 🎥 Vídeo de Demonstração
-[Clique aqui para assistir ao vídeo do fluxo completo](https://drive.google.com/file/d/13EO7XEH3kisx5hqz-56Djb_7csnnaU7Y/view?usp=sharing)
+[Clique aqui para assistir ao vídeo do fluxo completo](https://drive.google.com/file/d/1_dB5F9dHbt60k3wZyzndrZYQv8XRs4FR/view?usp=sharing)
 
 ---
 
