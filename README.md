@@ -15,10 +15,10 @@ O **FIAP Labs** é um aplicativo mobile desenvolvido para facilitar o agendament
 ---
 
 ## 👥 Integrantes do Grupo
-- **Giuliano (Exemplo)** - RM: 12345
-- **Integrante 2** - RM: 12346
-- **Integrante 3** - RM: 12347
-- **Integrante 4** - RM: 12348
+- **Giulia Rocha** - RM: 558084
+- **Gabriel Danius** - RM 555747
+- **Caio Rossini** - RM 555084
+- **Carlos Eduardo** - RM 556785
 
 ---
 

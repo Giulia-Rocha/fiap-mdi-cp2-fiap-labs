@@ -28,7 +28,7 @@ export function ReservaProvider({ children }) {
     setTimeout(() => {
       setLaboratorios([
         { id: '1', nome: 'Lab Maker',      capacidade: 30, status: 'Disponível' },
-        { id: '2', nome: 'Lab Mac (iOS)',   capacidade: 20, status: 'Ocupado'    },
+        { id: '2', nome: 'Lab Mac (iOS)',   capacidade: 20, status: 'Disponível'    },
         { id: '3', nome: 'Lab Windows 1',  capacidade: 40, status: 'Disponível' },
       ]);
       setLoading(false);
@@ -74,41 +74,37 @@ export function ReservaProvider({ children }) {
   }, [minhasReservas, reservasCarregadas]);
 
   // -------------------------------------------------------
-  // Adicionar reserva (lógica original do CP1 mantida)
+  // Adicionar reserva
   // -------------------------------------------------------
-  const adicionarReserva = (laboratorio) => {
-    if (minhasReservas.length > 0) {
-      return {
-        sucesso: false,
-        mensagem: 'Você já possui uma reserva ativa. Cancele-a antes de fazer outra.',
-      };
-    }
-
+  const adicionarReserva = (novaReserva) => {
     setLaboratorios(
       laboratorios.map((lab) =>
-        lab.id === laboratorio.id
-          ? { ...lab, capacidade: lab.capacidade - 1 }
+        lab.id === novaReserva.id
+          ? { ...lab, capacidade: Math.max(0, lab.capacidade - 1) }
           : lab
       )
     );
 
-    setMinhasReservas([...minhasReservas, laboratorio]);
+    setMinhasReservas([...minhasReservas, { ...novaReserva, reservaId: Date.now().toString() + Math.random().toString().substring(2, 6) }]);
     return {
       sucesso: true,
-      mensagem: `Sua reserva no ${laboratorio.nome} foi confirmada.`,
+      mensagem: `Sua reserva no ${novaReserva.nome} foi confirmada.`,
     };
   };
 
   // -------------------------------------------------------
-  // Remover reserva (lógica original do CP1 mantida)
+  // Remover reserva
   // -------------------------------------------------------
-  const removerReserva = (id) => {
-    setLaboratorios(
-      laboratorios.map((lab) =>
-        lab.id === id ? { ...lab, capacidade: lab.capacidade + 1 } : lab
-      )
-    );
-    setMinhasReservas(minhasReservas.filter((reserva) => reserva.id !== id));
+  const removerReserva = (reservaId) => {
+    const reserva = minhasReservas.find(r => r.reservaId === reservaId);
+    if (reserva) {
+      setLaboratorios(
+        laboratorios.map((lab) =>
+          lab.id === reserva.id ? { ...lab, capacidade: lab.capacidade + 1 } : lab
+        )
+      );
+    }
+    setMinhasReservas(minhasReservas.filter((r) => r.reservaId !== reservaId));
   };
 
   return (
